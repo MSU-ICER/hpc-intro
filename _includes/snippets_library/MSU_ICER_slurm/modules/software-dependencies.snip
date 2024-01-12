@@ -1,0 +1,84 @@
+To demonstrate, let's use `module list`. `module list` shows all loaded
+software modules.
+
+```
+{{ site.remote.prompt }} module list
+```
+{: .language-bash}
+
+```
+Currently Loaded Modules:
+  1) powertools/1.2   8) libxml2/2.9.10     15) ncurses/6.2
+  2) GCCcore/10.2.0   9) libpciaccess/0.16  16) libreadline/8.0
+  3) zlib/1.2.11     10) hwloc/2.2.0        17) Tcl/8.6.10
+  4) binutils/2.35   11) UCX/1.9.0          18) SQLite/3.33.0
+  5) GCC/10.2.0      12) libfabric/1.11.0   19) GMP/6.2.0
+  6) numactl/2.0.13  13) OpenMPI/4.0.5      20) libffi/3.3
+  7) XZ/5.2.5        14) bzip2/1.0.8        21) Python/3.8.6
+```
+{: .output}
+
+```
+{{ site.remote.prompt }} module load GROMACS
+{{ site.remote.prompt }} module list
+```
+{: .language-bash}
+
+```
+Currently Loaded Modules:
+Currently Loaded Modules:
+  1) powertools/1.2     11) UCX/1.9.0         21) Python/3.8.6
+  2) GCCcore/10.2.0     12) libfabric/1.11.0  22) OpenBLAS/0.3.13
+  3) zlib/1.2.11        13) OpenMPI/4.0.5     23) FFTW/3.3.8
+  4) binutils/2.35      14) bzip2/1.0.8       24) ScaLAPACK/2.1.0
+  5) GCC/10.2.0         15) ncurses/6.2       25) pybind11/2.6.0
+  6) numactl/2.0.13     16) libreadline/8.0   26) SciPy-bundle/2020.11
+  7) XZ/5.2.5           17) Tcl/8.6.10        27) networkx/2.5
+  8) libxml2/2.9.10     18) SQLite/3.33.0     28) GROMACS/2021
+  9) libpciaccess/0.16  19) GMP/6.2.0
+ 10) hwloc/2.2.0        20) libffi/3.3
+```
+{: .output}
+
+So in this case, loading the `GROMACS` module (a bioinformatics software
+package), also loaded `GMP/6.2.0` and
+`SciPy-bundle/2020.11` as well. Let's try unloading the
+`GROMACS` package.
+
+```
+{{ site.remote.prompt }} module unload GROMACS
+{{ site.remote.prompt }} module list
+```
+{: .language-bash}
+
+```
+Currently Loaded Modules:
+  1) powertools/1.2   8) libxml2/2.9.10     15) ncurses/6.2
+  2) GCCcore/10.2.0   9) libpciaccess/0.16  16) libreadline/8.0
+  3) zlib/1.2.11     10) hwloc/2.2.0        17) Tcl/8.6.10
+  4) binutils/2.35   11) UCX/1.9.0          18) SQLite/3.33.0
+  5) GCC/10.2.0      12) libfabric/1.11.0   19) GMP/6.2.0
+  6) numactl/2.0.13  13) OpenMPI/4.0.5      20) libffi/3.3
+  7) XZ/5.2.5        14) bzip2/1.0.8        21) Python/3.8.6
+```
+{: .output}
+
+So using `module unload` "un-loads" a module, and depending on how a site is
+ configured it may also unload all of the dependencies (in our case it does).
+  If we wanted to unload everything at once, we could run `module purge`
+ (unloads everything).
+
+```
+{{ site.remote.prompt }} module purge
+{{ site.remote.prompt }} module list
+```
+{: .language-bash}
+
+```
+No modules loaded
+```
+{: .output}
+
+Note that `module purge` is informative. It will also let us know if a default
+set of "sticky" packages cannot be unloaded (and how to actually unload these
+if we truly so desired).

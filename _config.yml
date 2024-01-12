@@ -32,24 +32,24 @@
 #
 # Compute responsibly.
 
-snippets: "/snippets_library/HPCC_MagicCastle_slurm"
+snippets: "/snippets_library/MSU_ICER_slurm"
 
 local:
-  prompt: "[you@laptop:~]$"
+  prompt: "[user@laptop ~]$"
   bash_shebang: "#!/usr/bin/env bash"
 
 remote:
-  name: "HPC Carpentry's Cloud Cluster"
-  login: "cluster.hpc-carpentry.org"
-  portal: "https://mokey.cluster.hpc-carpentry.org"
-  host: "login1"
-  node: "node1"
-  location: "cluster.hpc-carpentry.org"
-  homedir: "/home"
-  user: "yourUsername"
-  module_python3: "Python"
-  prompt: "[yourUsername@login1 ~]$"
-  bash_shebang: "#!/bin/bash"
+  name: "ICER HPCC"
+  login: "hpcc.msu.edu"
+  host: "dev-amd20"
+  node: "amr-252"
+  location: "Michigan State University"
+  homedir: "/mnt/home"
+  user: "netid"
+  module_python3: "GCC/10.2.0 OpenMPI/4.0.5 Python/3.8.6"
+  prompt: "[netid@dev-amd20 ~]$"
+  bash_shebang: "#!/usr/bin/env bash"
+  mpirun: "srun"
 
 sched:
   name: "Slurm"
@@ -57,24 +57,21 @@ sched:
     name: "sbatch"
     options: ""
   queue:
-    debug: "smnode"
-    testing: "cpubase_bycore_b1"
+    debug: "general-short"
+    testing: "general-short"
   status: "squeue"
   flag:
-    user: "-u yourUsername"
+    user: "-u netid"
     interactive: ""
     histdetail: "-l -j"
     name: "-J"
     time: "-t"
     queue: "-p"
-    nodes: "-N"
-    tasks: "-n"
   del: "scancel"
   interactive: "srun"
   info: "sinfo"
   comment: "#SBATCH"
-  hist: "sacct -u yourUsername"
-  hist_filter: ""
+  hist: "sacct -u netid"
 
 episode_order:
   - 10-hpc-intro

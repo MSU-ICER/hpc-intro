@@ -1,7 +1,7 @@
 # Intro to HPC
 
 This lesson teaches the basics of interacting with high-performance computing
-(HPC) clusters through the command line
+(HPC) clusters through the command line.
 
 [![Build Status][badge-img]][badge-lnk]
 

@@ -45,11 +45,20 @@ remote:
   node: "amr-252"
   location: "Michigan State University"
   homedir: "/mnt/home"
+  scratchdir: "/mnt/gs21/scratch"
+  researchdir: "/mnt/research"
+  workdir: 
   user: "netid"
+  research_group: "group"
   module_python3: "GCC/10.2.0 OpenMPI/4.0.5 Python/3.8.6"
   prompt: "[netid@dev-amd20 ~]$"
   bash_shebang: "#!/usr/bin/env bash"
   mpirun: "srun"
+
+ondemand:
+  address: "https://ondemand.msu.edu"
+  login_tab: "Development Nodes"
+  desktop: "Interactive Desktop"
 
 sched:
   name: "Slurm"
@@ -68,14 +77,15 @@ sched:
     time: "-t"
     queue: "-p"
   del: "scancel"
-  interactive: "srun"
+  interactive: "salloc"
   info: "sinfo"
   comment: "#SBATCH"
   hist: "sacct -u netid"
 
 episode_order:
   - 10-hpc-intro
-  - 11-connecting
+  - 19-connecting-ondemand
+  - 20-shell-basics
   - 12-cluster
   - 13-scheduler
   - 14-modules

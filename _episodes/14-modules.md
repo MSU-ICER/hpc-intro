@@ -10,8 +10,8 @@ objectives:
 keypoints:
 - "Load software with `module load softwareName`."
 - "Unload software with `module unload`"
-- "The module system handles software versioning and package conflicts for you
-  automatically."
+- "Clean out all loaded modules with `module purge` to avoid conflicts"
+- "Multiple pieces of software need to use compatible dependencies"
 ---
 
 On a high-performance computing system, it is seldom the case that the software
@@ -96,7 +96,7 @@ message telling you so
 To load a software module, use `module load`. In this example we will use
 Python 3.
 
-Initially, Python 3 is not loaded. We can test this by using the `which`
+Initially, there is only one version of Python 3 that is available. We can test this by using the `which`
 command. `which` looks for programs the same way that Bash does, so we can use
 it to tell us where a particular piece of software is stored.
 
@@ -157,27 +157,6 @@ tell commercial software packages where to find license servers.
 The module command also restores these shell environment variables
 to their previous state when a module is unloaded.
 
-## Software Versioning
-
-So far, we've learned how to load and unload software packages. This is very
-useful. However, we have not yet addressed the issue of software versioning. At
-some point or other, you will run into issues where only one particular version
-of some software will be suitable. Perhaps a key bugfix only happened in a
-certain version, or version X broke compatibility with a file format you use.
-In either of these example cases, it helps to be very specific about what
-software is loaded.
-
-Let's examine the output of `module avail` more closely.
-
-```
-{{ site.remote.prompt }} module avail
-```
-{: .language-bash}
-
-{% include {{ site.snippets }}/modules/available-modules.snip %}
-
-{% include {{ site.snippets }}/modules/wrong-gcc-version.snip %}
-
 > ## Using Software Modules in Scripts
 >
 > Create a job that is able to run `python3 --version`. Remember, no software
@@ -199,6 +178,7 @@ Let's examine the output of `module avail` more closely.
 > > {{ site.sched.comment }} {{ site.sched.flag.qos }}
 > > {% endif %}{{ site.sched.comment }} {{ site.sched.flag.time }} 00:00:30
 > > 
+> > module purge
 > > module load {{ site.remote.module_python3 }}
 > >
 > > python3 --version
@@ -211,5 +191,109 @@ Let's examine the output of `module avail` more closely.
 > > {: .language-bash}
 > {: .solution}
 {: .challenge}
+
+## Software Versioning
+
+So far, we've learned how to load and unload software packages. This is very
+useful. However, we have not yet addressed the issue of software versioning. At
+some point or other, you will run into issues where only one particular version
+of some software will be suitable. Perhaps a key bugfix only happened in a
+certain version, or version X broke compatibility with a file format you use.
+In either of these example cases, it helps to be very specific about what
+software is loaded.
+
+Let's use Python 3 as an example and try to load another version. We can see what versions are available using the `module spider` command:
+
+```
+{{ site.remote.prompt }} module spider Python
+```
+{: .language-bash}
+```
+----------------------------------------------------------------------------
+  Python:
+----------------------------------------------------------------------------
+    Description:
+      Python is a programming language that lets you work more quickly and
+      integrate your systems more effectively.
+
+     Versions:
+        Python/2.7.9
+        Python/2.7.10
+        Python/2.7.11
+...skipping...
+        Python/3.10.8-bare
+        Python/3.10.8
+        Python/3.11.3
+     Other possible modules matches:
+        Biopython  Boost.Python  GitPython  IPython  ScientificPython  ...
+
+----------------------------------------------------------------------------
+  To find other possible module matches execute:
+
+      $ module -r spider '.*Python.*'
+
+----------------------------------------------------------------------------
+  For detailed information about a specific "Python" package (including how to load the modules) use the module's full name.
+  Note that names that have a trailing (E) are extensions provided by other modules.
+  For example:
+
+     $ module spider Python/3.11.3
+----------------------------------------------------------------------------
+```
+{: .output}
+
+To find out what command to use to load a specific version, we can use `module spider` with that version:
+
+```
+{{ remote.site.prompt }} module spider Python/3.11.3
+```
+{: .language-bash}
+
+```
+----------------------------------------------------------------------------
+  Python: Python/3.11.3
+----------------------------------------------------------------------------
+    Description:
+      Python is a programming language that lets you work more quickly and
+      integrate your systems more effectively.
+
+
+    You will need to load all module(s) on any one of the lines below before the "Python/3.11.3" module is available to load.
+
+      GCCcore/12.3.0
+ 
+    Help:
+      Description
+      ===========
+      Python is a programming language that lets you work more quickly and integrate your systems
+       more effectively.
+      
+      
+      More information
+      ================
+       - Homepage: https://python.org/
+      
+      
+      Included extensions
+      ===================
+      flit_core-3.9.0, pip-23.1.2, setuptools-67.7.2, wheel-0.40.0
+```
+{: .output}
+
+
+In this case, we need to load the  `GCCcore/12.3.0` module first first, since `Python/3.11.3` needs it to be able to run
+
+```
+{{ site.remote.prompt}} module load GCCcore/12.3.0 Python/3.11.3
+```
+{: .language-bash}
+
+> ## Dependency consistency 
+> If you need to load multiple pieces of
+> software at the same time, you need to make sure they use the same
+> versions of any common dependencies. There is unfortunately not a
+> good solution to this yet! The best way is to use `module spider`
+> on different versions to try to find a match.
+{: .callout}
 
 {% include links.md %}

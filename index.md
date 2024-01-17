@@ -7,9 +7,9 @@ root: .
 
 This workshop is an introduction to using high-performance computing systems
 effectively. We can't cover every case or give an exhaustive course on parallel
-programming in just two days' teaching time. Instead, this workshop is intended
-to give students a good introduction and overview of the tools available and
-how to use them effectively.
+programming in just three hours of teaching time. Instead, this workshop is
+intended to give students a good introduction and overview of the tools
+available and how to use them effectively.
 
 > ## Prerequisites
 >
@@ -26,22 +26,26 @@ By the end of this workshop, students will know how to:
   connect to a cluster.
 * Transfer files onto a cluster.
 * Submit and manage jobs on a cluster using a scheduler.
-* Observe the benefits and limitations of parallel execution.
+<!-- * Observe the benefits and limitations of parallel execution. -->
 
+<!--
 > ## Getting Started
 >
 > To get started, follow the directions in the "[Setup](
 > {{ page.root }}/setup.html)" tab to download data to your computer and follow
 > any installation instructions.
 {: .callout}
+-->
 
 Note that this is the draft HPC Carpentry release. Comments and feedback are
 welcome.
 
+<!--
 > ## For Instructors
 >
 > If you are teaching this lesson in a workshop, please see the
 > [Instructor notes](guide/).
 {: .callout}
+-->
 
 {% include links.md %}

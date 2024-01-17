@@ -7,3 +7,16 @@ Currently Loaded Modules:
   5) hwloc/1.11.8    10) FFTW/3.3.7       15) CMake/3.11.1                     20) GMP/6.1.2        25) powertools/1.2
 ```
 {: .output}
+
+You should generally find and select modules based on your needs rather than using the defaults. We alway recommend clearing out all modules before you try loading new ones to help avoid conflicts. To do this, use the `module purge` command:
+
+```
+{{ site.remote.prompt }} module purge
+{{ site.remote.prompt }} module list
+```
+{: .language-bash}
+```
+No modules loaded
+```
+{: .output}
+

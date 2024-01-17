@@ -40,7 +40,7 @@ went wrong with a previous job. Fortunately, {{ site.sched.name }} makes it
 easy to start an interactive job with `{{ site.sched.interactive }}`:
 
 ```
-{{ site.remote.prompt }} {{ site.sched.interactive }} --pty bash
+{{ site.remote.prompt }} {{ site.sched.interactive }}
 ```
 {: .language-bash}
 
@@ -48,22 +48,34 @@ You should be presented with a bash prompt. Note that the prompt will likely
 change to reflect your new location, in this case the compute node we are
 logged on. You can also verify this with `hostname`.
 
+`{{ site.sched.interactive }}` can be passed all of the same options that you use to create a job script, but will use the default options (for better or for worse). However, to make life easier, {{ remote.name }} provides an alias called `interact` with reasonable default arguments:
+
+```
+{{ site.remote.prompt }} interact
+```
+{: .language-bash}
+
+To see its arguments use the help flag:
+
+```
+{{ site.remote.prompt }} interact -h
+```
+{: .language-bash}
+
+When you are done with an interactive job, type `exit` to quit your session.
+
 > ## Creating remote graphics
 >
-> To see graphical output inside your jobs, you need to use X11 forwarding. To
-> connect with this feature enabled, use the `-Y` option when you login with
-> the `ssh` command, e.g., `ssh -Y yourUsername@{{ site.remote.login }}`.
+> To see graphical output inside your jobs, we recommend that you use
+> OnDemand's {{ site.ondemand.desktop }} application. Choose it from the
+> list of Interactive Applications, fill in the same information you use
+> in a {{ site.sched.name }} job script, and press the "Launch" button. A
+> job to create this desktop will be automatically submitted for you,
+> which you can then access by clicking the "Launch {{
+> site.ondemand.desktop }}" button.
 >
-> To demonstrate what happens when you create a graphics window on the remote
-> node, use the `xeyes` command. A relatively adorable pair of eyes should pop
-> up (press `Ctrl-C` to stop). If you are using a Mac, you must have installed
-> XQuartz (and restarted your computer) for this to work.
->
-> If your cluster has the
-> [slurm-spank-x11](https://github.com/hautreux/slurm-spank-x11) plugin
-> installed, you can ensure X11 forwarding within interactive jobs by using the
-> `--x11` option for `{{ site.sched.interactive }}` with the command
-> `{{ site.sched.interactive }} --x11 --pty bash`.
+> You will be taken to a more tradtional graphical user interface. If you
+> would like to run a command from a terminal, go to the Applications
+> menu, and under System Tools, select Terminal.
 {: .callout}
 
-When you are done with the interactive job, type `exit` to quit your session.

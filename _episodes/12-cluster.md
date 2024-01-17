@@ -25,13 +25,8 @@ keypoints:
 
 ## Look Around the Remote System
 
-If you have not already connected to {{ site.remote.name }}, please do so now:
-
-```
-{{ site.local.prompt }}  ssh {{ site.remote.user }}@{{ site.remote.login }}
-```
-{: .language-bash}
-
+If you have not already connected to {{ site.remote.name }}, please [do
+so now]({{ page.root }}{% link _episodes/19-connecting-ondemand.md %}).
 Take a look at your home directory on the remote system:
 
 ```
@@ -74,12 +69,12 @@ devices are anchored to the "root" directory, which is `/`:
 {: .language-bash}
 ```
 bin   etc   lib64  proc  sbin     sys  var
-boot  {{ site.remote.homedir | replace: "/", "" }}  mnt    root  scratch  tmp  working
+boot  mnt    root  scratch  tmp  working
 dev   lib   opt    run   srv      usr
 ```
 {: .output}
 
-The "{{ site.remote.homedir | replace: "/", "" }}" directory is the one where
+The "{{ site.remote.homedir}}" subdirectory is the one where
 we generally want to keep all of our files. Other folders on a UNIX OS contain
 system files and change as you install new software or upgrade your OS.
 
@@ -93,14 +88,24 @@ system files and change as you install new software or upgrade your OS.
 >   throughout the HPC system, and often backed up periodically. Files stored
 >   here are typically slower to access, the data is actually stored on another
 >   computer and is being transmitted and made available over the network!
+>   * Access using `{{ site.remote.homedir }}/{{ site.remote.user }}`
+>
 > * __Scratch__ -- typically faster than the networked Home directory, but not
->   usually backed up, and should not be used for long term storage.
+>   usually backed up, and should not be used for long term storage. 
+>   * Access using `{{ site.remote.scratchdir }}/{{ site.remote.user }}`
+> {% if site.remote.researchdir %}
+> * __Research__ -- similar to Home, but useful for collaboration. Multiple users of a single group have access, and the space is managed by a PI.
+>   * Access using `{{ site.remote.researchdir}}/{{ site.remote.research_group }}`
+> {% endif %}
+> {% if site.remote.workdir %}
 > * __Work__ -- sometimes provided as an alternative to Scratch space, Work is
 >   a fast file system accessed over the network. Typically, this will have
 >   higher performance than your home directory, but lower performance than
 >   Scratch; it may not be backed up. It differs from Scratch space in that
 >   files in a work file system are not automatically deleted for you: you must
 >   manage the space yourself.
+>   * Access using `{{ site.remote.workdir}}`.
+> {% endif %}
 {: .callout}
 
 ## Nodes

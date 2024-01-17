@@ -1,0 +1,20 @@
+> ## Quotas
+>
+> Each of file space is subject to limitations to ensure that all resources are shared appropriately:
+> - **Home**: 50GB and 1 million files.
+> - **Research**: 50GB and 1 million files
+> - **Scratch**: 50TB and 1 million files. **FILES UNMODIFIED AFTER 45 DAYS WILL BE DELETED**.
+>
+> To check your usage, use the `quota` command:
+> ```
+> {{ site.remote.prompt }} quota
+> ```
+> {: .language-bash}
+> ```
+> home directory: Space    Space   Space     Space     Files     Files     Files     Files        
+>                  Quota    Used    Available % Used    Quota     Used      Available % Used
+> -----------------------------------------------------------------------------------------------
+> /mnt/home/{{ site.remote.user}}  50G      32G     18G       64%       1048576   432525    616051    59%
+> ```
+> {: .output}
+{: .callout}

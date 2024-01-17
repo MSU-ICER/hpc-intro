@@ -108,6 +108,8 @@ system files and change as you install new software or upgrade your OS.
 > {% endif %}
 {: .callout}
 
+{% include {{ site.snippets }}/cluster/quota.snip %}
+
 ## Nodes
 
 Individual computers that compose a cluster are typically called _nodes_

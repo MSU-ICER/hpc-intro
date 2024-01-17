@@ -281,6 +281,8 @@ jobs on the node will be unaffected. This means that one user cannot mess up
 the experience of others, the only jobs affected by a mistake in scheduling
 will be their own.
 
+{% include {{ site.snippets }}/scheduler/resource-tips.snip %}
+
 ## Cancelling a Job
 
 Sometimes we'll make a mistake and need to cancel a job. This can be done with

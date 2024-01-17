@@ -1,0 +1,23 @@
+> ## Tips for requesting resources
+>
+> Users often wonder how to most efficiently request resources to spend less
+> time queueing. Here are some tips:
+> 
+> - **Keep `--time` under four hours**: This will allow your jobs to have
+> access to the most nodes. This is because of *buy-in nodes*. Buy-in nodes are
+> purchased by research groups, and when a group member submits a job, they are
+> guaranteed access to this node within four hours (though their jobs could
+> start sooner if there's room on their buy-in node or somewhere else). By
+> keeping your job to less than four hours, you are able to run on the buy-in
+> nodes without blocking a member of that buy-in group.
+>
+>  - **Keep `--mem` less than 256GB and the total number of CPUs less than
+>  40**: This again ensures access to the widest range of nodes. Nodes that can
+>  support larger memory and numbers of CPUs are separated into a different
+>  partition that can have a larger backlog.
+>
+> - **Check your efficiency after running**: Use the `seff -j <job_id>` command
+> to see how much of the resources requested were actually used. This allows
+> you to tweak your submissions for future scripts or estimate usage in
+> different conditions.
+{: .callout}

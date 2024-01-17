@@ -56,7 +56,7 @@ remote:
   mpirun: "srun"
 
 ondemand:
-  address: "https://ondemand.msu.edu"
+  address: "https://ondemand.hpcc.msu.edu"
   login_tab: "Development Nodes"
   desktop: "Interactive Desktop"
 
